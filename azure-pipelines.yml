@@ -10,7 +10,7 @@ pool:
   name: myAgentPool   
 
 steps:
-- script: echo "Hi Julia and Mike"
+- script: echo "Hi Julia and Karin"
 
 # pool:
 #   vmImage: 'windows-latest'
