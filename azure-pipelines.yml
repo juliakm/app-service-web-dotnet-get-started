@@ -9,6 +9,10 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+variables:
+  BuildConfiguration: 'Release'  # Set your desired configuration
+  BuildPlatform: 'Any CPU'        # Set your desired platform
+
 steps:
 - task: NuGetToolInstaller@1
   displayName: 'Install NuGet'
@@ -22,10 +26,11 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '**/*.sln'
-    msbuildArgs: '/p:Configuration=Release'
+    msbuildArgs: '/p:Configuration=$(BuildConfiguration) /p:Platform="$(BuildPlatform)"'
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
   displayName: 'Build Solution'
+
 
 
 # pool:
