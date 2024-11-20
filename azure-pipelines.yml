@@ -7,10 +7,26 @@ trigger:
 - master
 
 pool:
-  name: myAgentPool   
+  vmImage: 'windows-latest'
 
 steps:
-- script: echo "Hi Julia and Karin"
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+  displayName: 'Restore NuGet Packages'
+
+- task: VSBuild@1
+  inputs:
+    solution: '**/*.sln'
+    msbuildArgs: '/p:Configuration=Release'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+  displayName: 'Build Solution'
+
 
 # pool:
 #   vmImage: 'windows-latest'
